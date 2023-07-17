@@ -9,156 +9,15 @@
  * ------------------------------------
  */
 
-import AppConfig from '@App/appConfig/AppConfig';
-import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
 import Head from 'next/head';
-import { useDispatch, useSelector } from 'react-redux';
-import OverlayVideoPlayer from '@Components/overlayVideoPlayer';
-import LoginLayout from '@Atoms/loginLayout';
-import SwiggyImage from '@Assets/images/okboy-scooter.png';
-import Image from '@Atoms/image/Image';
-import styles from '@Styles/Login.module.scss';
-import DashedContent from '@Atoms/dashedContent';
-import Button from '@Atoms/button';
-import { Row, Alert, Spin } from 'antd';
-import AntdInput from '@Atoms/AntdInput';
-import { email, phoneNumber } from '@Helpers/FieldValidator';
-import { userLoginAction } from '@Store/login-store/loginAction';
-import { useGoogleLogin, useGoogleOneTapLogin } from '@react-oauth/google';
-import jwtDecode from 'jwt-decode';
-import GoogleImage from '@Assets/images/google-icon.png';
-import axios from 'axios';
-import {
-  handleGoogleLoginData,
-  handleGoogleLoginError,
-  handleLoginError,
-} from '@Store/login-store/loginSlice';
-
-// ENV variables import
-import { GOOGLE_USER_INFO_API } from '../../env.config.js';
-import { getFromLocalStorage } from '@Utils/StorageUtil';
-import { STORAGE } from '@Constants/constants';
+import Image from 'next/image';
+import LoginLayout from 'src/layouts/LoginLayout';
+import okBoyScooter from '@Assets/images/okboy-scooter.png';
+import okBoyLogo from '@Assets/images/okboys_logo.png';
+import Button from '@Atoms/Button';
+import { Input } from 'antd';
 
 const Login = () => {
-  const router = useRouter();
-  const dispatch = useDispatch();
-
-  const [showOverlay, setOverlay] = useState(false);
-  const [values, setValues] = useState({ emailId: '', mobileNumber: '' });
-  const [emailError, setEmailError] = useState(false);
-  const [mobileNumberError, setPhoneNumberError] = useState(false);
-  const [loader, setLoader] = useState(true);
-
-  const isLoggedIn = useSelector((state) => state.loginSlice.loggedUserDetails);
-  const { googleLoginData, loginError, loginBtnLoading } = useSelector((state) => state.loginSlice);
-
-  useEffect(() => {
-    if (
-      getFromLocalStorage(STORAGE.AUTH) &&
-      Object?.keys(getFromLocalStorage(STORAGE.AUTH))?.length
-    ) {
-      let dt = getFromLocalStorage(STORAGE.AUTH);
-      if (!dt.brandDetails) {
-        router.push('/register-brand');
-      } else {
-        if (dt.brandDetails.region.length === 0) {
-          router.push('/register-brand/audience-goals');
-        } else {
-          router.push('/preferences');
-        }
-      }
-    } else {
-      router.push('/');
-    }
-    setTimeout(() => {
-      setLoader(false);
-    }, 1000);
-  }, []);
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      const { message, id } = isLoggedIn;
-      if (message === 'OTP Generated successfully' && id) {
-        router.push(`/otp?id=${id}`);
-      }
-    }
-  }, [isLoggedIn]);
-
-  const handleSkipVideo = () => {
-    setOverlay(false);
-  };
-
-  const onChangeInput = (event, type) => {
-    setValues({ ...values, [type]: event.target.value });
-  };
-  const onChangeOTP = (event, type) => {
-    setValues({ ...values, [type]: event.target.value });
-  };
-
-  const handleLogin = () => {
-    // if (emailError || mobileNumberError) return;
-    // const payload = {
-    //   ...values,
-    //   emailId: Object.keys(googleLoginData).length > 0 ? googleLoginData?.email : values?.emailId,
-    //   appType: AppConfig.getCMSMessage('app_type'),
-    // };
-    // dispatch(userLoginAction(payload));
-
-    console.log("router")
-    // router.push('/landingDashboard');
-    router.push('/addFranchise');
-
-  };
-
- 
-
-  const handleMobileNumberBlur = () => {
-    !phoneNumber(values.mobileNumber) ? setPhoneNumberError(true) : setPhoneNumberError(false);
-  };
-
-  /**
-   * useGoogleOneTapLogin - Google One Tap Login Handler
-   * We receive the response as a credential JWT. We have to decode to get the user data.
-   */
-  useGoogleOneTapLogin({
-    onSuccess: (response) => {
-      const googleResponse = jwtDecode(response?.credential);
-      dispatch(handleGoogleLoginData(googleResponse));
-      setEmailError(false);
-      dispatch(handleLoginError(''));
-    },
-    onError: (error) => {
-      dispatch(handleGoogleLoginError(error?.message));
-    },
-    cancel_on_tap_outside: false,
-  });
-
-  /**
-   * handleGoogleSubmit - Google Login Button Handler
-   * We receive access_token, need to call the Google APIs to get the user info from the access_token.
-   */
-  const handleGoogleSubmit = useGoogleLogin({
-    onSuccess: async (response) => {
-      await axios
-        .get(GOOGLE_USER_INFO_API, {
-          headers: {
-            Authorization: `Bearer ${response.access_token}`,
-          },
-        })
-        .then((res) => {
-          dispatch(handleGoogleLoginData(res.data));
-          setEmailError(false);
-          dispatch(handleLoginError(''));
-        })
-        .catch((error) => {
-          dispatch(handleGoogleLoginError(error?.message));
-        });
-    },
-    // eslint-disable-next-line no-console
-    onError: (error) => dispatch(handleGoogleLoginError(error?.message)),
-  });
-
   return (
     <>
       <Head>
@@ -166,60 +25,36 @@ const Login = () => {
         <meta name="description" content="Generated by create next app" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {loader && <Spin />}
-      {showOverlay && !loader && <OverlayVideoPlayer handleSkipVideo={handleSkipVideo} />}
-      {!loader && (
-        <LoginLayout
-          title={AppConfig.getCMSMessage('login.title')}
-          subtitle={AppConfig.getCMSMessage('login.subTitle')}
-          backgroundimg={SwiggyImage.src}
-        >
-          <Row gutter={2} className={styles.login}>
-           
-            <Row>
-              <AntdInput
-                required
-                label="Mobile Number"
-                size="large"
-                errorMgs={mobileNumberError ? '*Please enter a valid mobile number' : ''}
-                onChange={(e) => onChangeInput(e, 'mobileNumber')}
-                value={values.mobileNumber}
-                onBlur={handleMobileNumberBlur}
-              />
-            </Row>
-            <Row className={styles.formfield}>
-              <AntdInput
-                required
-                label="OTP"
-                size="large"
-                // errorMgs={emailError ? '*Please enter otp' : ''}
-                onChange={(e) => onChangeOTP(e, 'otp')}
-                // value={googleLoginData?.email || values?.emailId}
-                // disabled={googleLoginData?.email}
-                // onBlur={handleEmailBlur}
-              />
-            </Row>
-            <Row justify="end">
-              <Button
-                size="small"
-                onClick={handleLogin}
-                action="submit"
-                isProcessing={loginBtnLoading}
-                processingLabel=""
-              >
-                {AppConfig.getCMSMessage('login.login_button')}
-              </Button>
-            </Row>
-            {loginError && (
-              <Row justify="center">
-                <Alert message="Error" description={loginError} type="error" showIcon />
-              </Row>
-            )}
-          
-           
-          </Row>
-        </LoginLayout>
-      )}
+      <LoginLayout>
+        <div className="p-4 flex gap-20 w-full justify-center">
+          <div className="flex flex-1 flex-col justify-center px-20">
+            <div className="img items-start flex justify-self-center">
+              <Image src={okBoyLogo.src} height={50} width={100} objectFit="contain" />
+            </div>
+            <h1 className="text-defaultText font-bold mb-10">ADMIN</h1>
+            <div className="flex flex-col space-y-4">
+              <div className="flex flex-col mb-4 space-y-2">
+                <p className="okp">Mobile Number</p>
+                <Input placeholder="Basic usage" className="okInput" />
+              </div>
+              <div className="flex flex-col mb-4 space-y-2">
+                <p className="okp">OTP</p>
+                <Input placeholder="Basic usage" className="okInput" />
+              </div>
+              <div className="flex justify-end">
+                <div className="flex w-[50%]">
+                  <Button name="Submit" handleClick={() => {}} disabled />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-1 justify-center px-20">
+            <div className="img">
+              <Image src={okBoyScooter.src} width={300} height={300} objectFit="contain" />
+            </div>
+          </div>
+        </div>
+      </LoginLayout>
     </>
   );
 };

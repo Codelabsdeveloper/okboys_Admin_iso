@@ -1,11 +1,11 @@
 /*
  * File: next.config.js
- * Project: codelabs-boilderplate
- * Created Date: Sat Aug 27 2022 2:43:49 AM
- * Author: Mohammed Parveez <ahamed.parveez@gmail.com>
+ * Project: OkBoys
+ * Created Date: Mon Jul 17 2023 02:30:35
+ * Author: Mohammed Parveez
  * ------------------------------------
  *
- * Copyright (c) 2022 All rights reserved by Codelabs
+ * Copyright (c) 2023 All rights reserved by Codelabs
  * ------------------------------------
  */
 
@@ -25,20 +25,10 @@ const urlRewrites = {
 };
 
 const pluginAntdLess = withAntdLess({
-  // modifyVars: { '@primary-color': 'red' }, // optional
-  lessVarsFilePath: './src/styles/variables.less', // optional
-  lessVarsFilePathAppendToEndOfContent: false, // optional
-  // optional https://github.com/webpack-contrib/css-loader#object
-  cssLoaderOptions: {
-    // ...
-    mode: 'local',
-    localIdentName: isDev ? '[local]--[hash:base64:4]' : '[hash:base64:8]', // invalid! for Unify getLocalIdent (Next.js / CRA), Cannot set it, but you can rewritten getLocalIdentFn
-    exportLocalsConvention: 'camelCase',
-    exportOnlyLocals: false,
-    // ...
-    // getLocalIdent params: (context, _localIdentName, localName, options) => {
-    getLocalIdent: () => {
-      return 'cl-';
+  experimental: {
+    forceSwcTransforms: true,
+    images: {
+      allowFutureImage: true,
     },
   },
 });

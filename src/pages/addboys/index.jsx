@@ -12,208 +12,208 @@
 import React from 'react';
 import DashboardLayout from 'src/layouts/DashboardLayout';
 
-function Dashboard() {
+function AddBoys() {
   return (
     <div>
       <DashboardLayout>
         <div>
-          Content Content
+          Add Boys Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
-          Content
+          Add Boys
           <br />
         </div>
       </DashboardLayout>
@@ -221,4 +221,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default AddBoys;
