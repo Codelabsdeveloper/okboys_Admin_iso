@@ -7,30 +7,22 @@ const { Sider } = Layout;
 const items2 = [
   {
     icon: UserOutlined,
-    label: 'subnav 1',
-    children: [
-      { label: 'Dashboard', route: '/dashboard' },
-      { label: 'Add Boys', route: '/addboys' },
-      // Add more menu items with the "route" property
-    ],
+    label: 'Dashboard',
+    children: [{ label: 'Dashboard', route: '/dashboard' }]
   },
   {
     icon: LaptopOutlined,
-    label: 'subnav 2',
+    label: 'Franchise',
     children: [
-      { label: 'option3', route: '/path/to/option3' },
-      { label: 'option4', route: '/path/to/option4' },
+      { label: 'Add', route: '/addFranchise' },
+      { label: 'List', route: '/listFranchise' },
       // Add more menu items with the "route" property
     ],
   },
   {
     icon: NotificationOutlined,
-    label: 'subnav 3',
-    children: [
-      { label: 'option5', route: '/path/to/option5' },
-      { label: 'option6', route: '/path/to/option6' },
-      // Add more menu items with the "route" property
-    ],
+    label: 'Profile',
+    children: []
   },
 ];
 
@@ -47,7 +39,7 @@ function SideBar() {
         mode="inline"
         defaultSelectedKeys={['1']}
         defaultOpenKeys={['sub1']}
-        className="h-full border-r-0 bg-secondary text-white"
+        className="h-full border-r-0 hover:text-red"
       >
         {items2.map((item, index) => (
           <Menu.SubMenu
@@ -55,11 +47,15 @@ function SideBar() {
             icon={React.createElement(item.icon)}
             title={item.label}
           >
-            {item.children.map((child) => (
-              <Menu.Item key={child.label} onClick={() => handleClick(child.route)}>
+            {item.children.length > 0 ? item.children.map((child) => (
+              <Menu.Item 
+                  key={child.label} 
+                  onClick={() => handleClick(child.route)}
+                  
+              >
                 {child.label}
               </Menu.Item>
-            ))}
+            )) : ""}
           </Menu.SubMenu>
         ))}
       </Menu>
