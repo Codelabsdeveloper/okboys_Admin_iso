@@ -53,3 +53,5 @@ export const convertQueryStringToObject = (queryString) => {
 
   return queryObj;
 };
+
+export const GET_DASHBOARD_METRICS_URL = "https://fakestoreapi.com/products";
